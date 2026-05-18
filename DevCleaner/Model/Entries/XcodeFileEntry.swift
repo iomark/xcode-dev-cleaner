@@ -174,22 +174,33 @@ open class XcodeFileEntry: NSObject {
     // MARK: Operations
     @discardableResult
     public func recalculateSize() -> Size? {
+        let items = self.items
+        let paths = self.paths
         var result: Int64 = 0
         
+        let lock = NSLock()
+        func addToResult(_ size: Int64) {
+            lock.lock()
+            result += size
+            lock.unlock()
+        }
+        
         // calculate sizes of children
-        for item in self.items {
+        DispatchQueue.concurrentPerform(iterations: items.count) { index in
+            let item = items[index]
             if let size = item.recalculateSize(), let sizeInBytes = size.numberOfBytes {
-                result += sizeInBytes
+                addToResult(sizeInBytes)
             }
         }
         
         // calculate own size
-        let fileManager = FileManager.default
-        for pathUrl in self.paths {
+        DispatchQueue.concurrentPerform(iterations: paths.count) { index in
+            let pathUrl = paths[index]
+            let fileManager = FileManager.default
             if let dirSize = try? fileManager.allocatedSizeOfDirectory(atUrl: pathUrl) {
-                result += dirSize
+                addToResult(dirSize)
             } else if let fileSize = try? fileManager.allocatedSizeOfFile(at: pathUrl) {
-                result += fileSize
+                addToResult(fileSize)
             }
         }
         

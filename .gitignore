@@ -15,5 +15,8 @@ build/*
 # test suite files
 TestSuite/*
 
+# AI
+AGENTS.md
+
 # builds
 Builds/*

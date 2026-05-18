@@ -594,6 +594,12 @@ DQ
                                 <action selector="followMeOnTwitter:" target="XfG-lQ-9wD" id="aW6-LV-8tN"/>
                             </connections>
                         </menuItem>
+                        <menuItem title="Website" id="A6K-vd-N0Q">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="openWebsite:" target="XfG-lQ-9wD" id="MGG-xt-HaA"/>
+                            </connections>
+                        </menuItem>
                     </items>
                 </menu>
                 <menu title="Entries Menu" autoenablesItems="NO" id="JKM-eE-XhK" userLabel="Entries Menu">

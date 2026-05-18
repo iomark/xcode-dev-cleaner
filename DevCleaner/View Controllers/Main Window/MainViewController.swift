@@ -462,6 +462,14 @@ final class MainViewController: NSViewController {
         NSWorkspace.shared.open(myMastodonUrl)
     }
     
+    @IBAction func openWebsite(_ sender: Any) {
+        guard let websiteUrl = URL(string: "https://kkolakowski.com") else {
+            return
+        }
+        
+        NSWorkspace.shared.open(websiteUrl)
+    }
+    
     @IBAction func downloadXcode(_ sender: Any) {
         guard let xcodeUrl = URL(string: "https://apps.apple.com/pl/app/xcode/id497799835?") else {
             return
